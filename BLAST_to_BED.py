@@ -170,7 +170,7 @@ def validate_db(db_path):
     print('Searching for proper database files for', db_name, 'in', db_directory, file=sys.stderr)
     db_contents = '\n'.join(os.listdir(db_directory))
     if not nhr(db_contents) and not nin(db_contents) and not nsq(db_contents) and not nal(db_contents):
-        raise FileNotFoundError("Failed to find the BLAST nucleotide database")
+        raise FileNotFoundError("Failed to find BLAST database")
 
 
 #   A funtion to get the value from a tag
@@ -243,7 +243,10 @@ def run_blastn(query, database, evalue, max_seqs, max_hsps):
     query_base = os.path.basename(os.path.splitext(query)[0])
     database_base = os.path.basename(os.path.splitext(database)[0])
     blast_out = os.getcwd() + '/' + query_base + '_' + database_base + '_BLAST.xml'
-    validate_db(database)
+    try:
+        validate_db(database)
+    except FileNotFoundError as error:
+        sys.exit(error)
     #   Setup BLASTn
     blastn = NcbiblastnCommandline(
         query=query,

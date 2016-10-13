@@ -159,18 +159,20 @@ def validate_db(db_path):
         assert isinstance(db_path, str)
     except AssertionError:
         raise TypeError
-    db_name = os.path.basename(db_path)
+    db_name = os.path.basename(db_path) # Get the basename of the database
+    #   Four regexes to find the four components of a nucleotide BLAST database
     nhr = re.compile(r'(%s\.[0-9\.]*nhr)' % db_name).search
     nin = re.compile(r'(%s\.[0-9\.]*nin)' % db_name).search
     nsq = re.compile(r'(%s\.[0-9\.]*nsq)' % db_name).search
     nal = re.compile(r'(%s\.*nal)' % db_name).search
-    db_directory = os.path.abspath(os.path.realpath(os.path.dirname(db_path)))
-    if not db_directory:
+    db_directory = os.path.abspath(os.path.realpath(os.path.dirname(db_path))) # Get the directory of the database
+    if not db_directory: # This is necessary if the BLAST database is in the current directory
         db_directory = os.getcwd()
     print('Searching for proper database files for', db_name, 'in', db_directory, file=sys.stderr)
-    db_contents = '\n'.join(os.listdir(db_directory))
+    db_contents = '\n'.join(os.listdir(db_directory)) # Collect the contents of this directory
+    #   If any part of the database doesn't exist...
     if not nhr(db_contents) and not nin(db_contents) and not nsq(db_contents) and not nal(db_contents):
-        raise FileNotFoundError("Failed to find BLAST database")
+        raise FileNotFoundError("Failed to find BLAST database") # Raise an error
 
 
 #   A funtion to get the value from a tag
@@ -438,6 +440,8 @@ def main():
         sys.exit(NoReferenceError)
     except FileNotFoundError as error: # Can't open a file
         sys.exit("Cannot find " + error.filename)
+    except BLASTFailedError as error:
+        sys.exit(error)
     #   Collections for results
     no_hit = set()
     raw_hsps = list()

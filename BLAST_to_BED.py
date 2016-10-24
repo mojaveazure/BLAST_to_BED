@@ -32,6 +32,8 @@ VALS = [
 
 NO_HIT_MESSAGE = 'No hits found'
 
+NO_DEF_MESSAGE = 'No definition line'
+
 HSP_SORT = lambda hsp: (hsp.get_chrom(), hsp.get_start(), hsp.get_end())
 
 #   An error for no reference provided
@@ -207,6 +209,8 @@ def parse_hit(snpid, hit):
     except AssertionError:
         raise TypeError
     chrom = get_value(tag=hit, value='Hit_def')
+    if chrom == NO_DEF_MESSAGE:
+        chrom = get_value(tag=hit, value='Hit_accession')
     #   Holding lists
     vals = list()
     hsps = list()

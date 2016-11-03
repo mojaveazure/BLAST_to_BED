@@ -23,12 +23,12 @@ except ImportError as error:
 
 DEFAULT_OUTPUT = os.getcwd() + '/output.bed'
 
-VALS = [
+VALS = (
     'Hsp_evalue',
     'Hsp_hit-from',
     'Hsp_hit-to',
     'Hsp_hit-frame'
-    ]
+)
 
 NO_HIT_MESSAGE = 'No hits found'
 

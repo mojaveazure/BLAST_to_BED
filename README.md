@@ -1,6 +1,6 @@
-# `BLAST_to_BED.py`
+# BLAST\_to\_BED
 
-`BLAST_to_BED.py` is a simple Python script that parses a BLAST XML file and creates a BED file. One can give it a BLAST XML file to be parsed or give it a FASTA file and path to a nucleotide BLAST database to run BLASTn and parse the results. Basic usage can be found as follows:
+BLAST\_to\_BED is a simple Python script that parses a BLAST XML file and creates a BED file. One can give it a BLAST XML file to be parsed or give it a FASTA file and path to a nucleotide BLAST database to run BLASTn and parse the results. Basic usage can be found as follows:
 
 ```
 $ ./BLAST_to_BED.py
@@ -65,22 +65,22 @@ Filtering options:
 
 ## Inputs
 
-`BLAST_to_BED.py` requires either a FASTA file or BLAST XML file as input. These two options are mutually exclusive; one cannot give both a FASTA and XML file. Giving a FASTA file will cause `BLAST_to_BED.py` to run BLASTn against a BLAST database. The resulting XML file will be removed upon completion of the script unles `-k | --keep-xml` is passed to the script
+BLAST\_to\_BED requires either a FASTA file or BLAST XML file as input. These two options are mutually exclusive; one cannot give both a FASTA and XML file. Giving a FASTA file will cause BLAST\_to\_BED to run BLASTn against a BLAST database. The resulting XML file will be removed upon completion of the script unles `-k | --keep-xml` is passed to the script
 
 ## Outputs
 
-`BLAST_to_BED.py` creates between one and four output files.
+BLAST\_to\_BED creates between one and four output files.
 
 | File name | Contents |
 | --------- | -------- |
-| *fasta*_*database*.xml | XML results from running BLAST with `BLAST_to_BED.py`. Generated only if `-k | --keep-xml` is passed to the script.
+| *fasta*_*database*.xml | XML results from running BLAST with BLAST\_to\_BED. Generated only if `-k | --keep-xml` is passed to the script.
 | *output*.bed | Final four-column BED file (last column is query name), specified by `-o | --outfile` or `-b | --bed` |
 | *output*_failed.log | List of queries that failed during the BLAST, generated only if there were failures |
 | *output*_filtered.bed | BED file that contains the removed hits from the filtering step, generated only if filtering was specified |
 
 ## Filtering
 
-`BLAST_to_BED.py` can filter the final BED output to exclude or keep only certain chromosomes or contigs, though not both for obvious reasons. To filter, pass `-X | --exclude-chrom` to exclude or `-K | --keep-chrom` to keep and a space-delimited list of chromosome or contigs names exactly as they would be found in the BLAST XML file. If you don't know what the chromosome contig names are, either look in the BLAST XML file (generated with `-k | --keep_xml`) or use grep on the reference FASTA file that was the basis for the BLAST database
+BLAST\_to\_BED can filter the final BED output to exclude or keep only certain chromosomes or contigs, though not both for obvious reasons. To filter, pass `-X | --exclude-chrom` to exclude or `-K | --keep-chrom` to keep and a space-delimited list of chromosome or contigs names exactly as they would be found in the BLAST XML file. If you don't know what the chromosome contig names are, either look in the BLAST XML file (generated with `-k | --keep_xml`) or use grep on the reference FASTA file that was the basis for the BLAST database
 
 ```bash
 grep '>' reference.fasta
@@ -88,7 +88,7 @@ grep '>' reference.fasta
 
 ## Dependencies
 
-`BLAST_to_BED.py` depends on the following:
+BLAST\_to\_BED depends on the following:
  - [Python 3](https://www.python.org/)
  - [NCBI BLAST+](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
  - [BioPython](http://biopython.org/wiki/Biopython)

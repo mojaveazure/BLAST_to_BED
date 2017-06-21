@@ -9,6 +9,7 @@ if sys.version_info.major is not 3:
 import os
 import re
 import argparse
+from distutils import spawn
 from itertools import repeat
 from copy import deepcopy
 
@@ -19,6 +20,10 @@ try:
     from Bio.Blast.Applications import NcbiblastnCommandline
 except ImportError as error:
     sys.exit("Please install " + error.name)
+
+
+if not spawn.find_executable('blastn'):
+    sys.exit("Please install BLASTn from NCBI")
 
 
 DEFAULT_OUTPUT = os.getcwd() + '/output.bed'
